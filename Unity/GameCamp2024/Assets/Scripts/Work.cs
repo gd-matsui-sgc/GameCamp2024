@@ -12,4 +12,5 @@ static public class Work
     // カメラ
     static public Camera  gameCamera  = null;
 
+    static public Score gameScore = null;
 }

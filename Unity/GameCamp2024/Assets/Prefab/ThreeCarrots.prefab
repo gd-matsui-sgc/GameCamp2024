@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3660635645789329644}
   - component: {fileID: 5136802175023166849}
   - component: {fileID: 6928245653024736998}
-  - component: {fileID: 4818731659305168526}
   - component: {fileID: 302626282793474902}
   m_Layer: 0
   m_Name: RCarrot
@@ -85,18 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4818731659305168526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1903143569399010079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1428703f32a5f94b9f6b5b93f24933f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &302626282793474902
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -131,7 +118,6 @@ GameObject:
   - component: {fileID: 2140115859622454721}
   - component: {fileID: 7099592301328173788}
   - component: {fileID: 3905905095492674327}
-  - component: {fileID: 4279788658604582342}
   - component: {fileID: 542133895082947099}
   m_Layer: 0
   m_Name: LCarrot
@@ -205,18 +191,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4279788658604582342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4640552280700459611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1428703f32a5f94b9f6b5b93f24933f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &542133895082947099
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -251,7 +225,6 @@ GameObject:
   - component: {fileID: 2995145079530740291}
   - component: {fileID: 4849264584038511814}
   - component: {fileID: 8603440141386723796}
-  - component: {fileID: 7078983568852388809}
   - component: {fileID: 1981945297604371850}
   - component: {fileID: 6743568705294022714}
   m_Layer: 0
@@ -328,18 +301,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7078983568852388809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932555710421362964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1428703f32a5f94b9f6b5b93f24933f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &1981945297604371850
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3289934527359845181}
   - component: {fileID: 3503082608183286824}
+  - component: {fileID: 775419488879892625}
   m_Layer: 5
   m_Name: Gauge
   m_TagString: Untagged
@@ -63,6 +64,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &775419488879892625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785290807345139231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c28872ca9c0a440afaf2deb78b529c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gaugeBaseImage: {fileID: 6382890046802577258}
+  gaugeImage: {fileID: 1400062521802892443}
+  maximumImage: {fileID: 7927458206794927656}
+  gaugeValueMax: 100
 --- !u!1 &2888218430586405263
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,18 +255,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7779050401945525653}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.008726558, y: 0, z: 0, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3289934527359845181}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 580, y: -688}
+  m_LocalEulerAnglesHint: {x: 1, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 24, y: -298}
   m_SizeDelta: {x: 128, y: 128}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2416719300098979575
 CanvasRenderer:
   m_ObjectHideFlags: 0

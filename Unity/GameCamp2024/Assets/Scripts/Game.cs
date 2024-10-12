@@ -39,6 +39,11 @@ public class Game : BaseScene
 	[SerializeField]
 	public Telop telop = null;
 
+	// ゲージ
+	[SerializeField]
+	public Gauge gauge = null;
+
+
 	// 人参マネージャー
 	[SerializeField]
 	public CarrotManager carrotManager = null;
@@ -49,6 +54,7 @@ public class Game : BaseScene
 	protected override void OnStart()
 	{
 		Work.gameScore = score;
+		Work.gauge     = gauge;
 		timer.ResetTime();
 	}
 
@@ -113,9 +119,27 @@ public class Game : BaseScene
 		}
 		else
 		{
+			if(Input.GetKeyDown(KeyCode.A))
+			{
+				Work.gameScore.AddScore(10);
+			}
+			if(Input.GetKeyDown(KeyCode.B))
+			{
+				Work.gauge.AddValue(1);
+			}
+			if(Input.GetKeyDown(KeyCode.C))
+			{
+				Work.gauge.ResetValue(false);
+			}
 
+
+			// タイムアップ処理
+			// いろいろなものを停止させる
 			if(timer.IsTimeLimit())
 			{
+				player.Idle();
+				Work.gameScore.Pause();
+				Work.gauge.Pause();
 				carrotManager.Stop();
 				SetPhase((int)Phase.TimeUp);
 			}

@@ -35,6 +35,7 @@ public class Player : Base
 	protected override void OnStart()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        transform.localPosition = Vector3.zero;
     }
 
 
@@ -95,7 +96,6 @@ public class Player : Base
 	public void Idle()
     {
         m_rigidbody.Sleep();
-        transform.localPosition = Vector3.zero;
         SetPhase((int)Phase.Idle);
     }
 

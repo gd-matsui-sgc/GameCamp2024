@@ -13,4 +13,7 @@ static public class Work
     static public Camera        gameCamera  = null;
     // スコア
     static public Score         gameScore = null;
+    // ゲージ
+    static public Gauge         gauge = null;
+      
 }

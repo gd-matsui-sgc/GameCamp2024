@@ -20,7 +20,13 @@ public class Player : Base
 
     private Rigidbody m_rigidbody = null;
 
-    [SerializeField] float moveSpeed = 10f;
+    // 移動速度
+    [SerializeField]
+    public float moveSpeed = 10f;
+
+    // 回転速度
+    [SerializeField] 
+    public float rotationSpeed = 10.0f;
     
 	
     /**
@@ -53,7 +59,21 @@ public class Player : Base
         float x = Input.GetAxis("Horizontal");
 		float z = Input.GetAxis("Vertical");
 
-        m_rigidbody.AddForce(x * moveSpeed, 0, z * moveSpeed);
+        // 入力に基づいた移動方向を計算
+        Vector3 moveDirection = new Vector3(x, 0, z).normalized;
+
+        // 移動方向に力を加える
+        if (moveDirection != Vector3.zero) // 入力がある場合のみ実行
+        {
+        // 力を加えて移動
+        m_rigidbody.AddForce(moveDirection * moveSpeed, ForceMode.Force);
+
+        // 移動方向に向かせる（徐々に回転）
+        Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        //m_rigidbody.AddForce(x * moveSpeed, 0, z * moveSpeed, ForceMode.Force);
     }
 
     /*

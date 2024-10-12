@@ -70,3 +70,25 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+Library
+Temp
+*.bat
+*.csproj
+*.csproj.user
+*.booproj
+*.pidb
+*.sln
+*.sln.meta
+*.suo
+*.unityproj
+*.userprefs
+*.userprefs.meta
+*~
+.DS_Store
+*[! -~]*
+*.pidb.meta
+.vscode
+Logs
+UserSettings
+

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +9,13 @@ public class Carrot : MonoBehaviour
     [SerializeField] GameObject maxCarrots;
     [SerializeField] GameObject deathCarrots;
 
-    //lQ‚ªŒÍ‚ê‚é‚Ü‚Å‚ÌŠÔ
+    //äººå‚ãŒæ¯ã‚Œã‚‹ã¾ã§ã®æ™‚é–“
     [SerializeField] float growLimit = 15f;
 
-    //‘æˆê¬’·
+    //ç¬¬ä¸€æˆé•·
     [SerializeField] float growTime = 10f;
 
-    //‘æ“ñ¬’·
+    //ç¬¬äºŒæˆé•·
     [SerializeField] float maxGrowTime = 5f;
 
     int totalScore = 0;

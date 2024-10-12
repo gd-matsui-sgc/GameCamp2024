@@ -1,7 +1,7 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; //UI‹@”\‚ğˆµ‚¤‚Æ‚«‚É’Ç‹L‚·‚é
+using UnityEngine.UI; //UIæ©Ÿèƒ½ã‚’æ‰±ã†ã¨ãã«è¿½è¨˜ã™ã‚‹
 public class Timer : MonoBehaviour
 {
     public Text Timertext;
@@ -18,18 +18,18 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ŠÔØ‚ê
+        //æ™‚é–“åˆ‡ã‚Œ
         if (Limittime < (int)Time.time)
         {
-            //I—¹ƒtƒ‰ƒO‚ğƒIƒ“
+            //çµ‚äº†ãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ³
             blimmitTime = true;
         }
 
-        //I—¹‚µ‚Ä‚¢‚È‚¢ê‡
+        //çµ‚äº†ã—ã¦ã„ãªã„å ´åˆ
         if (!blimmitTime)
         {
-            //¢ŠE‚Ìc‚èŠÔ•\‹L
-            Timertext.text = "c‚èŠÔ(•b)" + (Limittime - (int)Time.time);
+            //ä¸–ç•Œã®æ®‹ã‚Šæ™‚é–“è¡¨è¨˜
+            Timertext.text = "æ®‹ã‚Šæ™‚é–“(ç§’)" + (Limittime - (int)Time.time);
         }
     
     }

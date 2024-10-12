@@ -1,7 +1,7 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; //UI‹@”\‚ğˆµ‚¤‚Æ‚«‚É’Ç‹L‚·‚é
+using UnityEngine.UI; //UIæ©Ÿèƒ½ã‚’æ‰±ã†ã¨ãã«è¿½è¨˜ã™ã‚‹
 
 public class Score : MonoBehaviour
 {
@@ -28,19 +28,19 @@ public class Score : MonoBehaviour
         scoreText.text = "" + (int)score;
     }
 
-    //“_”‚Ì‰ÁZ
+    //ç‚¹æ•°ã®åŠ ç®—
     public void AddScore(int nAddNum)
     {
         score += nAddNum;
     }
 
-    //ƒXƒRƒA‚ÌƒŠƒZƒbƒg
+    //ã‚¹ã‚³ã‚¢ã®ãƒªã‚»ãƒƒãƒˆ
     public void ResetScore()
     {
         score = 0;
     }
 
-    //ƒXƒRƒA‚Ì’l‚ğ•Ô‚·
+    //ã‚¹ã‚³ã‚¢ã®å€¤ã‚’è¿”ã™
     public int GetScore()
     {
         return score;

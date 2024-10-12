@@ -27,7 +27,7 @@ public class Main : BaseScene
     // Start is called before the first frame update
     protected override void OnStart()
     {
-        SetPhase((int)Phase.Title);
+        SetPhase((int)Phase.Game);
     }
 
     // Update is called once per frame

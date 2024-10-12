@@ -18,8 +18,6 @@ public class Carrot : MonoBehaviour
     //ëÊìÒê¨í∑
     [SerializeField] float maxGrowTime = 5f;
 
-    int score = 0;
-
     int totalScore = 0;
 
     enum carrotGrow
@@ -32,6 +30,8 @@ public class Carrot : MonoBehaviour
 
     private carrotGrow growCarrots;
 
+    public Score score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,13 +40,14 @@ public class Carrot : MonoBehaviour
         threeCarrots.SetActive(false);
         maxCarrots.SetActive(false);
         deathCarrots.SetActive(false);
+
+        Work.gameScore = score;
     }
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log(score);
-        Debug.Log("total : " + totalScore);
 
         growLimit -= Time.deltaTime;
 
@@ -93,27 +94,30 @@ public class Carrot : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 Debug.Log("Get");
-                
-                
+
+                int n = 0;
 
                 if(growCarrots == carrotGrow.FIRST_CARROT)
                 {
-                    score += 1;
-                }
+                    n = 1;
+
+				}
                 else if (growCarrots == carrotGrow.THREE_CARROT)
                 {
-                    score += 3;
-                }
+                    n = 3;
+
+				}
 				else if (growCarrots == carrotGrow.MAX_CARROT)
 				{
-                    score += 5;
+                    n = 5;
 				}
 				else if (growCarrots == carrotGrow.DEATH_CARROT)
 				{
-                    score -= 1;
+                    n = -1;
 				}
 
-                totalScore += score;
+                score.AddScore(n);
+                
 				Destroy(gameObject);
 
 			}

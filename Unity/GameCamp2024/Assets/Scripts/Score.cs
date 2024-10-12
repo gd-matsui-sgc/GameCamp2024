@@ -5,7 +5,7 @@ using UnityEngine.UI; //UI機能を扱うときに追記する
 
 public class Score : MonoBehaviour
 {
-    public Text Scoretext;
+    public Text scoreText;
     public int score =0;
     
     // Start is called before the first frame update
@@ -24,8 +24,8 @@ public class Score : MonoBehaviour
             
         }
 
-        //世界の残り時間表記
-        Scoretext.text = "" + (int)score;
+       
+        scoreText.text = "" + (int)score;
     }
 
     //点数の加算

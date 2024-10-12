@@ -432,6 +432,10 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 880752488}
+    - target: {fileID: 1154711545590843365, guid: b771f39a551f0ce4ea0837a318228576, type: 3}
+      propertyPath: m_startupPhase
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5841352225295898538, guid: b771f39a551f0ce4ea0837a318228576, type: 3}
       propertyPath: m_Name
       value: Main

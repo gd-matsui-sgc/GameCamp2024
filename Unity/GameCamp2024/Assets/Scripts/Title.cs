@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Title : MonoBehaviour
+public class Title : Base
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void OnStart()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void OnUpdate()
     {
-        
+        if(GetPhaseTime() == 100)
+        {
+            Exit();
+        }
     }
 }

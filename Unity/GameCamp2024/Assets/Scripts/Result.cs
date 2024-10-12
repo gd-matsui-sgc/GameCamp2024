@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
-public class Result : MonoBehaviour
+public class Result : Base
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void OnStart()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void OnUpdate()
     {
-        
+        if(GetPhaseTime() == 100)
+        {
+            Exit();
+        }
     }
 }

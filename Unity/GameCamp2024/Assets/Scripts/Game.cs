@@ -119,19 +119,22 @@ public class Game : BaseScene
 		}
 		else
 		{
+			// サンプル
 			if(Input.GetKeyDown(KeyCode.A))
 			{
 				Work.gameScore.AddScore(10);
 			}
+
+			// ゲージ上昇
 			if(Input.GetKeyDown(KeyCode.B))
 			{
 				Work.gauge.AddValue(1);
 			}
+			// ゲージリセット(0に戻る)
 			if(Input.GetKeyDown(KeyCode.C))
 			{
 				Work.gauge.ResetValue(false);
 			}
-
 
 			// タイムアップ処理
 			// いろいろなものを停止させる

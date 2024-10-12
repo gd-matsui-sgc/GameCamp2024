@@ -11,6 +11,9 @@ public class Title : BaseScene
         FadeOut,
     }
 
+    [SerializeField]
+    public TitleRabbit titleRabbit = null;
+
     /**
      * Updateの直前に呼ばれます
      */
@@ -53,6 +56,7 @@ public class Title : BaseScene
     {
         if (Input.GetKey(KeyCode.Space))
         {
+            titleRabbit.Run();
             SetPhase((int)Phase.FadeOut);
         }
     }
@@ -62,13 +66,16 @@ public class Title : BaseScene
      */
     protected void _FadeOut()
     {
-        if(GetPhaseTime() == 0)
+        if(GetPhaseTime() == 70)
         {
             Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black, Fade.FadeSpeed.Norma );
         }
-        else if(!Work.fade.IsPlaying())
+        else if(GetPhaseTime() > 70)
         {
-            Exit();
+            if(!Work.fade.IsPlaying())
+            {
+                Exit();
+            }
         }
     }
     

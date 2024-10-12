@@ -193,39 +193,36 @@ public class Carrot : Base
      */
     private void OnTriggerStay(Collider other)
     {
-        //if(!IsRunning()){ return; }
+        if(!IsRunning()){ return; }
 
-        Debug.Log("OnTriggerStay!!!!!!!");
-        if (other.name == "Player")
+        if (other.name.Equals("Player"))
         {
             // 削除する
             Kill();
 
             // ポイントを加算
-            int n = 0;
+            int point = 0;
 
             if(m_growCarrots == CarrotGrow.FIRST_CARROT)
             {
-                n = 1;
-
+                point = 1;
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
-                n = 3;
-
+                point = 3;
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
-                n = 5;
+                point = 5;
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {
-                n = -1;
+                point = -1;
             }
 
             if(Work.gameScore != null)
             {
-                Work.gameScore.AddScore(n);
+                Work.gameScore.AddScore(point);
             }
         }
     }

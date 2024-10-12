@@ -35,6 +35,7 @@ public class Main : BaseScene
      */
     protected override void OnStart()
     {
+        CreateFade();
         SetPhase((int)m_startupPhase);
     }
 
@@ -214,10 +215,6 @@ public class Main : BaseScene
 
         GameObject logo = GameObject.Find("Logo");
         m_logo = logo?.GetComponent<Logo>();
-        if(m_logo != null)
-        {
-        }
-        Debug.Log("LOGOOOO");
     }
 
     /**
@@ -315,6 +312,30 @@ public class Main : BaseScene
         GameObject testMatsui = GameObject.Find("Test_Matsui");
         m_testMatsui = testMatsui?.GetComponent<Test_Matsui>();
     }
+
+    /**
+     * フェード生成
+     */
+    void CreateFade()
+    {
+        if( Work.fade == null )
+        {
+            Object resFadeObject = Resources.Load("UI/Fade");
+            if( resFadeObject )
+            {
+                GameObject fadeObject = ( GameObject )Instantiate(resFadeObject);
+                if( fadeObject != null )
+                {
+                    Work.fade = fadeObject.GetComponent<Fade>();
+                    if( Work.fade != null )
+                    {
+                        Work.fade.Play(Fade.FadeType.Blank);
+                    }
+                }
+            }
+        }
+    }
+
 
 }
 

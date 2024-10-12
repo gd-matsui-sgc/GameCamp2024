@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 static public class Work
 {
     // フェード
-    // static public Fade        fade        = null;
+    static public Fade        fade        = null;
     // EventSystem
     static public EventSystem eventSystem = null;
     // カメラ

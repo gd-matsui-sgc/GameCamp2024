@@ -35,6 +35,9 @@ public class Main : BaseScene
      */
     protected override void OnStart()
     {
+        // FPSを60に設定
+        Application.targetFrameRate = 60;
+
         CreateFade();
         SetPhase((int)m_startupPhase);
     }

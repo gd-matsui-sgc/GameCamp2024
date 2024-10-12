@@ -112,6 +112,15 @@ public class Gauge : Base
         return m_value;
     }
 
+    /*
+     * フィーバー中か
+     * @returns 判定結果
+     */
+    public bool IsFever()
+    {
+        return (m_value == gaugeValueMax);
+    }
+
     // 値をウィジェットに適用
     private void ApplyValueToWidget()
     {

@@ -24,11 +24,15 @@ public class BaseScene : Base
     {
         if(!s_systemInitialized)
         {
+            s_systemInitialized = true;
             // FPSを60に設定
             Application.targetFrameRate = 60;
 
             // フェードを生成
             CreateFade();
+
+            // エフェクトシステムを生成
+            CreateEffectSystem();
 
         }
 
@@ -109,4 +113,24 @@ public class BaseScene : Base
             }
         }
     }
+
+    /**
+     * エフェクトシステム生成
+     */
+    private void CreateEffectSystem()
+    {
+        if( Work.effectSystem == null )
+        {
+            Object resEffectSystemObject = Resources.Load("UI/EffectSystem");
+            if( resEffectSystemObject )
+            {
+                GameObject effectSystemObject = ( GameObject )Instantiate(resEffectSystemObject);
+                if( effectSystemObject != null )
+                {
+                    Work.effectSystem = effectSystemObject.GetComponent<EffectSystem>();
+                }
+            }
+        }
+    }
+    
 }

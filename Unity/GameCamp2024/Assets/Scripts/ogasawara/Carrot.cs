@@ -32,6 +32,9 @@ public class Carrot : Base
 
         // 削除
         Kill,
+
+        // 仮)フィーバー
+        Fever,
     }
 
     public enum CarrotGrow
@@ -44,6 +47,9 @@ public class Carrot : Base
 
     private CarrotGrow m_growCarrots;
 
+    // 穴のインデックス番号(-1初期値)
+    private int        m_holeIndex = -1;
+
     /**
      * Updateの直前に呼ばれる
      */
@@ -54,6 +60,8 @@ public class Carrot : Base
         threeCarrots.SetActive(false);
         maxCarrots.SetActive(false);
         deathCarrots.SetActive(false);
+
+        Idle();
 
     }
 
@@ -67,6 +75,7 @@ public class Carrot : Base
         case Phase.Idle:                break;
         case Phase.Run:     _Run();     break;
         case Phase.Kill:    _Kill();    break;
+        case Phase.Fever:   _Fever();   break;
         }
     }
 
@@ -107,6 +116,12 @@ public class Carrot : Base
                 deathCarrots.SetActive(true);
             }
         }
+
+        // 仮）フィーバー中はキャラに吸い寄せられるなど。
+        if(Work.gauge.IsFever())
+        {
+            SetPhase((int)Phase.Fever);
+        }
     }
 
     /*
@@ -126,12 +141,35 @@ public class Carrot : Base
     }
 
     /*
+     * フィーバーフェイズ
+     */
+    private void _Fever()
+    {
+        // 仮）ここで属性かえてもよさそう
+        if(GetPhaseTime() == 0)
+        {
+
+        }
+
+        float followSpeed = 10.0f;
+
+        // ターゲットの方向を計算
+        Vector3 direction = (Work.player.transform.position - transform.position).normalized;
+
+        // オブジェクトをターゲットの方向に移動
+        transform.position = Vector3.MoveTowards(transform.position, Work.player.transform.position, followSpeed * Time.deltaTime);
+
+        // ターゲットの方向に向ける
+        transform.LookAt(Work.player.transform);
+    }
+
+    /*
      * 待機フェイズにします
      */
 	public void Idle()
     {
         m_growLimit = growLimit;
-
+        m_holeIndex  = -1;
         transform.localPosition = Vector3.one * 1000.0f;
 
         threeCarrots.SetActive(false);
@@ -153,11 +191,12 @@ public class Carrot : Base
     /*
      * 実行フェイズにします
      */
-	public void Run(Vector3 position)
+	public void Run(int holeIndex, Vector3 position)
     {
         transform.localPosition = new Vector3(position.x, position.y, position.z);
         m_growLimit = growLimit;
         carrot.SetActive(true);
+        m_holeIndex = holeIndex;
 
         SetPhase((int)Phase.Run);
     }
@@ -168,7 +207,8 @@ public class Carrot : Base
      */
     public bool IsRunning()
     {
-        return ((Phase)GetPhase() == Phase.Run);
+        return ((Phase)GetPhase() == Phase.Run ||
+                (Phase)GetPhase() == Phase.Fever );
     }
 
     /*
@@ -188,6 +228,15 @@ public class Carrot : Base
         return ((Phase)GetPhase() == Phase.Kill);
     }
 
+    /*
+     * 穴のインデックス番号を取得
+     * @returns インデックス番号
+     */
+    public int GetHoleIndex()
+    {
+        return m_holeIndex;
+    }
+
     /**
      * Collider が他のトリガーと当たり続けている毎フレーム呼び出される
      */
@@ -200,20 +249,26 @@ public class Carrot : Base
             // 削除する
             Kill();
 
+            // エフェクト再生
+            Work.effectSystem.Play(EffectSystem.EffectType.ItemGet, transform.position);
+
             // ポイントを加算
             int point = 0;
 
             if(m_growCarrots == CarrotGrow.FIRST_CARROT)
             {
                 point = 1;
+                Work.gauge.AddValue(5);
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
                 point = 3;
+                Work.gauge.AddValue(10);
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
                 point = 5;
+                Work.gauge.AddValue(20);
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {

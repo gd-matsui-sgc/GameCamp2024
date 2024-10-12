@@ -12,13 +12,16 @@ public class Result : BaseScene
         FadeOut,
     }
 
+    // リザルト用スコア
+    [SerializeField]
+    public Score resultScore = null;
 
     /**
      * Updateの直前に呼ばれます
      */
     protected override void OnStart()
     {
-        
+        resultScore.ResetScore();
     }
 
     /**
@@ -54,9 +57,31 @@ public class Result : BaseScene
      */
     protected void _Run()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if( GetPhaseTime() == 60 )
         {
-            SetPhase((int)Phase.FadeOut);
+            if(Work.totalScore < 20)
+            {
+                resultScore.AddScore(Work.totalScore, 2.0f);
+            }
+            else
+            {
+                resultScore.AddScore(Work.totalScore, 5.0f);
+            }
+        }
+        else if( GetPhaseTime() == 62 )
+        {
+            if( resultScore.IsTweenPlaying())
+            {
+                SetPhaseTime(61);
+            }
+        }
+        // 少し待ち時間を作っておく
+        else if( GetPhaseTime() >= 80 )
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                SetPhase((int)Phase.FadeOut);
+            }
         }
     }
 

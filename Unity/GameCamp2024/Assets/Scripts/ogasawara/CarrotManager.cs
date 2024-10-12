@@ -18,16 +18,32 @@ public class CarrotManager : Base
 		Stop,
 	}
 
-	[SerializeField] GameObject[] carrotArray;
-	int count;
-	GameObject carrots;
-
 	private static readonly int CARROT_POOL_MAX = 30;
 
 	[SerializeField]
 	public GameObject carrotGameObject = null;
 
-	// 人参リスト
+	// 穴の情報
+	public class HoleInfo
+	{
+		// コンストラクタ
+		public HoleInfo(int _index)
+		{
+			index = _index;
+		}
+
+		// 穴の番号（変更予定ないので書き込み禁止）
+		public readonly int index    = 0;
+		// 穴の位置
+		public Vector3  position = Vector3.zero;
+		// 人参が空っぽか
+		public bool     isEmpty = true;
+	}
+
+	// 穴の位置情報のリスト
+	private List<HoleInfo>	m_holeInfoList = new List<HoleInfo>();
+
+	// 人参リスト（プール）
 	List<Carrot>    m_carrotList = new List<Carrot>();
 
     /**
@@ -43,8 +59,16 @@ public class CarrotManager : Base
 			m_carrotList.Add(carrot);
 		}
 
-		//count = 0;
-		//carrots = GameObject.Instantiate(carrotArray[count]) as GameObject;
+		// ToDo
+		// Gameシーンに穴のGameObjectを配置して、ここで取得すると座標も個数もわかってよさそう
+		// 今はいったん強制的にランダムで入れてます。
+		for(int i = 0; i < 16; i++)
+		{
+			HoleInfo holeInfo = new HoleInfo(i);
+			holeInfo.isEmpty = true;
+			holeInfo.position = new Vector3(Random.Range(0, 20) - 10.0f, 0.0f, Random.Range(0, 20) - 10.0f);
+			m_holeInfoList.Add(holeInfo);
+		}
 	}
 
     /*
@@ -62,12 +86,12 @@ public class CarrotManager : Base
     /*
      * 人参をセット
      */
-	public void CarrotSet(Vector3 position)
+	public void CarrotSet(int holeIndex, Vector3 position)
 	{
 		Carrot carrot = SearchIdlingCarrots();
 		if(carrot != null)
 		{
-			carrot.Run(position);
+			carrot.Run(holeIndex, position);
 		}
 	}
 
@@ -76,11 +100,29 @@ public class CarrotManager : Base
      */
 	private void _Play()
 	{
-		if(GetPhaseTime() % 300 == 0)
+		// ToDo:生成タイミングを何かで制御したらよさそう
+		if(GetPhaseTime() % 10 == 0)
 		{
-			float x = Random.Range(0, 20) - 10.0f;
-			float z = Random.Range(0, 20) - 10.0f;
-			CarrotSet(new Vector3(x, 0, z));
+			HoleInfo holeInfo = SearchEmptyHoleInfo(true);
+			if(holeInfo != null)
+			{
+				m_holeInfoList[holeInfo.index].isEmpty = false;
+				CarrotSet(holeInfo.index, new Vector3(holeInfo.position.x, 0, holeInfo.position.z));
+			}
+		}
+
+		// 重い。美しくない書き方。でも時間がないのでやむをえず。
+		foreach(HoleInfo holeInfo in m_holeInfoList)
+		{
+			if(!holeInfo.isEmpty)
+			{
+				// 存在していない場合は空っぽにする
+				Carrot carrot = SearchCarrotsByHoleIndex(holeInfo.index);
+				if(!carrot)
+				{
+					holeInfo.isEmpty = true;
+				}
+			}
 		}
 	}
 
@@ -114,5 +156,59 @@ public class CarrotManager : Base
 			}
 		}
 		return null;
+	}
+
+    /*
+     * 人参を穴のインデックスで検索
+	 * @param holeIndex    穴のインデックス
+	 * @returns 見つかった人参
+     */
+	public Carrot SearchCarrotsByHoleIndex(int holeIndex)
+	{
+		for(int i = 0 ; i < CARROT_POOL_MAX; i++)
+		{
+			if(m_carrotList[i].GetHoleIndex() == holeIndex )
+			{
+				return m_carrotList[i];
+			}
+		}
+		return null;
+	}
+
+
+    /*
+     * 空っぽの穴を検索
+	 * @param   isRandom    ランダムで抽選するか
+	 * @returns 見つかった穴情報
+     */
+	public HoleInfo SearchEmptyHoleInfo(bool isRandom)
+	{
+		if(isRandom)
+		{
+			List<HoleInfo> emptyHoleInfoList = new List<HoleInfo>();
+			for(int i = 0 ; i < m_holeInfoList.Count; i++)
+			{
+				if(m_holeInfoList[i].isEmpty)
+				{
+					emptyHoleInfoList.Add(m_holeInfoList[i]);
+				}
+			}
+			if(emptyHoleInfoList.Count > 0 )
+			{
+				int index = Random.Range(0, emptyHoleInfoList.Count);
+				return emptyHoleInfoList[index];
+			}
+		}
+		else
+		{
+			for(int i = 0 ; i < m_holeInfoList.Count; i++)
+			{
+				if(m_holeInfoList[i].isEmpty)
+				{
+					return m_holeInfoList[i];
+				}
+			}
+		}
+		return null;		
 	}
 }

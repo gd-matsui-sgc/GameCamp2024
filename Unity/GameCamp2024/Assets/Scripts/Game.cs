@@ -43,10 +43,12 @@ public class Game : BaseScene
 	[SerializeField]
 	public Gauge gauge = null;
 
-
 	// 人参マネージャー
 	[SerializeField]
 	public CarrotManager carrotManager = null;
+
+	// 仮）フィーバータイムカウンタ
+	private float m_feverTimeCount = 0;
 
     /**
      * Updateの直前に呼ばれる
@@ -55,6 +57,8 @@ public class Game : BaseScene
 	{
 		Work.gameScore = score;
 		Work.gauge     = gauge;
+		Work.player    = player;
+		Work.totalScore = 0;
 		timer.ResetTime();
 	}
 
@@ -114,33 +118,35 @@ public class Game : BaseScene
 		if(GetPhaseTime() == 0)
 		{
 			timer.CountStart();
-			player.Run();
+			Work.player.Run();
 			carrotManager.Play();
 		}
 		else
 		{
-			// サンプル
-			if(Input.GetKeyDown(KeyCode.A))
+			// 仮）フィーバー中は５秒間で元に戻るなど。
+			if(Work.gauge.IsFever())
 			{
-				Work.gameScore.AddScore(10);
+				m_feverTimeCount += Time.deltaTime;
+				if(m_feverTimeCount >= 5)
+				{
+					Work.gauge.ResetValue(false);
+					m_feverTimeCount = 0.0f;
+				}
 			}
 
-			// ゲージ上昇
-			if(Input.GetKeyDown(KeyCode.B))
+
+			// サンプル
+			if(Input.GetKeyDown(KeyCode.X))
 			{
-				Work.gauge.AddValue(1);
-			}
-			// ゲージリセット(0に戻る)
-			if(Input.GetKeyDown(KeyCode.C))
-			{
-				Work.gauge.ResetValue(false);
+				Work.gauge.AddValue(50);
 			}
 
 			// タイムアップ処理
 			// いろいろなものを停止させる
 			if(timer.IsTimeLimit())
 			{
-				player.Idle();
+				Work.totalScore = Work.gameScore.GetScore();
+				Work.player.Idle();
 				Work.gameScore.Pause();
 				Work.gauge.Pause();
 				carrotManager.Stop();

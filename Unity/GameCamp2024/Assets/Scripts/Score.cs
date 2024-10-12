@@ -50,13 +50,17 @@ public class Score : MonoBehaviour
         ApplyScoreToTextWidget();
     }
 
-    //点数の加算
-    public void AddScore(int nAddNum)
+    /**
+     * 点数の加算
+     * @param nAddNum     加算値
+     * @param moveTime    その値の表示になるまでの時間(s)
+     */
+    public void AddScore(int nAddNum, float moveTime = 2.0f)
     {
         //if(m_tween.IsPlaying()){ m_tween.Cancel(); }
         int tempScore = m_score + nAddNum;
         tempScore = Mathf.Clamp(tempScore, 0, 9999999);
-        m_tween.Play(m_tween.GetProgress(), Vector3.one * (tempScore), 2, Tween.Mode.Linear);
+        m_tween.Play(m_tween.GetProgress(), Vector3.one * (tempScore), moveTime, Tween.Mode.Linear);
         m_score = tempScore;
     }
 
@@ -80,6 +84,20 @@ public class Score : MonoBehaviour
     public void Pause()
     {
         m_tween.Cancel();
+    }
+
+    /*
+     * Tween再生中か
+     * @returns 判定結果
+     */
+    public bool IsTweenPlaying()
+    {
+        if(m_tween != null    &&
+           m_tween.IsPlaying())
+        {
+            return true;
+        }
+        return false;
     }
 
     // スコアをテキストに適用

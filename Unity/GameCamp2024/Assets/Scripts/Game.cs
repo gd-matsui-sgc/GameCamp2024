@@ -35,6 +35,10 @@ public class Game : BaseScene
 	[SerializeField]
 	public Player player = null;
 
+	// テロップ
+	[SerializeField]
+	public Telop telop = null;
+
 	// 人参マネージャー
 	[SerializeField]
 	public CarrotManager carrotManager = null;
@@ -83,9 +87,16 @@ public class Game : BaseScene
      */
 	protected void _GameStart()
 	{
-		if (GetPhaseTime() >= 60)
+		if( GetPhaseTime() == 0)
 		{
-			SetPhase((int)Phase.Run);
+			telop.Play(Telop.TelopType.GameStart);
+		}
+		else if( GetPhaseTime() > 0)
+		{
+			if(!telop.IsPlaying())
+			{
+				SetPhase((int)Phase.Run);
+			}
 		}
 	}
 
@@ -116,9 +127,16 @@ public class Game : BaseScene
      */
 	protected void _TimeUp()
 	{
-		if (GetPhaseTime() >= 60)
+		if( GetPhaseTime() == 0)
 		{
-			SetPhase((int)Phase.FadeOut);
+			telop.Play(Telop.TelopType.GameEnd);
+		}
+		else if( GetPhaseTime() > 0)
+		{
+			if(!telop.IsPlaying())
+			{
+				SetPhase((int)Phase.FadeOut);
+			}
 		}
 	}
 

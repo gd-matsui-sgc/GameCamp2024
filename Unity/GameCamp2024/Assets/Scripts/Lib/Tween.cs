@@ -89,6 +89,18 @@ public class Tween : MonoBehaviour
     }
 
     /**
+     * Tweenをキャンセルします
+     */    
+    public void Cancel()
+    {
+        if(IsPlaying())
+        {
+            m_progress = m_end;
+            m_running = false;
+        }
+    }
+
+    /**
      * Tweenを再生中か
      * @return 判定結果
      */    

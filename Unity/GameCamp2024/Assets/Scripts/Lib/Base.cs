@@ -157,6 +157,4 @@ public class Base : MonoBehaviour
         m_phaseTime = phaseTime;
         m_phaseTimeUpdatable = false;
     }
-
-
 }

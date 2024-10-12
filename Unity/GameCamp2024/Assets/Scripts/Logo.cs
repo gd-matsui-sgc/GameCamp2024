@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Logo : Base
+public class Logo : BaseScene
 {
     public enum Phase
     {
@@ -11,14 +11,16 @@ public class Logo : Base
         FadeOut,
     }
 
-
-    // Start is called before the first frame update
+    /**
+     * Updateの直前に呼ばれます
+     */
     protected override void OnStart()
     {
-        
     }
 
-    // Update is called once per frame
+    /**
+     * 毎フレーム呼ばれます
+     */
     protected override void OnUpdate()
     {
         switch((Phase)GetPhase())
@@ -29,9 +31,9 @@ public class Logo : Base
         }
     }
 
-    /**
-    *
-    */
+    /*
+     * フェードイン
+     */
     protected void _FadeIn()
     {   
         if(GetPhaseTime() == 0)
@@ -46,12 +48,15 @@ public class Logo : Base
 
     protected void _Run()
     {
-        if(GetPhaseTime() == 60*10 )
+        if(GetPhaseTime() == 60*2 )
         {
             SetPhase((int)Phase.FadeOut);
         }
     }
 
+    /*
+     * フェードアウト
+     */
     protected void _FadeOut()
     {
         if(GetPhaseTime() == 0)

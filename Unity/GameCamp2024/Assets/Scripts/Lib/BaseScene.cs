@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
  */
 public class BaseScene : Base
 {
+    // システムを初期化したか
+    static bool s_systemInitialized = false;
+
     // イベントシステム
     [SerializeField]
     protected EventSystem eventSystem = null;
@@ -16,6 +19,21 @@ public class BaseScene : Base
     // シーン上のカメラ
     [SerializeField]
     protected Camera    gameCamera = null;
+
+    protected override void Awake()
+    {
+        if(!s_systemInitialized)
+        {
+            // FPSを60に設定
+            Application.targetFrameRate = 60;
+
+            // フェードを生成
+            CreateFade();
+
+        }
+
+        base.Awake();
+    }
 
     /**
      * Updateの直前に呼ばれる(Unity側)
@@ -69,4 +87,26 @@ public class BaseScene : Base
         }
     }
 
+    /**
+     * フェード生成
+     */
+    private void CreateFade()
+    {
+        if( Work.fade == null )
+        {
+            Object resFadeObject = Resources.Load("UI/Fade");
+            if( resFadeObject )
+            {
+                GameObject fadeObject = ( GameObject )Instantiate(resFadeObject);
+                if( fadeObject != null )
+                {
+                    Work.fade = fadeObject.GetComponent<Fade>();
+                    if( Work.fade != null )
+                    {
+                        Work.fade.Play(Fade.FadeType.Blank);
+                    }
+                }
+            }
+        }
+    }
 }

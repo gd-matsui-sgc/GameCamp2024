@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Title : Base
+public class Title : BaseScene
 {
     public enum Phase
     {
@@ -11,14 +11,16 @@ public class Title : Base
         FadeOut,
     }
 
-
-    // Start is called before the first frame update
+    /**
+     * Updateの直前に呼ばれます
+     */
     protected override void OnStart()
     {
-        
     }
 
-    // Update is called once per frame
+    /**
+     * 毎フレーム呼ばれます
+     */
     protected override void OnUpdate()
     {
         switch((Phase)GetPhase())
@@ -29,9 +31,9 @@ public class Title : Base
         }
     }
 
-    /**
-    *
-    */
+    /*
+     * フェードイン
+     */
     protected void _FadeIn()
     {   
         if(GetPhaseTime() == 0)
@@ -44,14 +46,20 @@ public class Title : Base
         }
     }
 
+    /*
+     * 実行中（演出により分散）
+     */
     protected void _Run()
     {
-        if(GetPhaseTime() == 60*10 )
+        if (Input.GetKey(KeyCode.Space))
         {
             SetPhase((int)Phase.FadeOut);
         }
     }
 
+    /*
+     * フェードアウト
+     */
     protected void _FadeOut()
     {
         if(GetPhaseTime() == 0)

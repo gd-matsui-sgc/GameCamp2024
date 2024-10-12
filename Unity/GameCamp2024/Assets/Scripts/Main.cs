@@ -31,14 +31,18 @@ public class Main : BaseScene
     private Phase m_startupPhase = Phase.Logo;  // 開始フェーズ
 
     /**
+     * 生成時に呼ばれる(Unity側)
+     */
+    protected override void OnAwake()
+    {
+
+    }
+
+    /**
      * Updateの直前に呼ばれる
      */
     protected override void OnStart()
     {
-        // FPSを60に設定
-        Application.targetFrameRate = 60;
-
-        CreateFade();
         SetPhase((int)m_startupPhase);
     }
 
@@ -316,28 +320,6 @@ public class Main : BaseScene
         m_testMatsui = testMatsui?.GetComponent<Test_Matsui>();
     }
 
-    /**
-     * フェード生成
-     */
-    void CreateFade()
-    {
-        if( Work.fade == null )
-        {
-            Object resFadeObject = Resources.Load("UI/Fade");
-            if( resFadeObject )
-            {
-                GameObject fadeObject = ( GameObject )Instantiate(resFadeObject);
-                if( fadeObject != null )
-                {
-                    Work.fade = fadeObject.GetComponent<Fade>();
-                    if( Work.fade != null )
-                    {
-                        Work.fade.Play(Fade.FadeType.Blank);
-                    }
-                }
-            }
-        }
-    }
 
 
 }

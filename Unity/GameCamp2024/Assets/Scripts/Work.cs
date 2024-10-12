@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 static public class Work
 {
     // フェード
-    static public Fade        fade        = null;
+    static public Fade          fade        = null;
     // EventSystem
-    static public EventSystem eventSystem = null;
+    static public EventSystem   eventSystem = null;
     // カメラ
-    static public Camera  gameCamera  = null;
-
-    static public Score gameScore = null;
+    static public Camera        gameCamera  = null;
+    // スコア
+    static public Score         gameScore = null;
 }

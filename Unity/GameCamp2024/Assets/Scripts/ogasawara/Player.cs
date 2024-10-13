@@ -35,6 +35,7 @@ public class Player : Base
 	protected override void OnStart()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        m_rigidbody.isKinematic = true;
         transform.localPosition = Vector3.zero;
     }
 
@@ -85,6 +86,7 @@ public class Player : Base
         // 演出があれば再生
         if(GetPhaseTime() == 0)
         {
+            m_rigidbody.isKinematic = true;
             m_rigidbody.Sleep();
         }
         Idle();
@@ -95,6 +97,7 @@ public class Player : Base
      */
 	public void Idle()
     {
+        m_rigidbody.isKinematic = true;
         m_rigidbody.Sleep();
         SetPhase((int)Phase.Idle);
     }
@@ -113,6 +116,7 @@ public class Player : Base
      */
 	public void Run()
     {
+        m_rigidbody.isKinematic = false;
         SetPhase((int)Phase.Run);
     }
 

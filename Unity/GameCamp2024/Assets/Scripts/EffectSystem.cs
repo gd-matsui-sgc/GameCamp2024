@@ -12,6 +12,14 @@ public class EffectSystem : Base
         ItemGet,
         // 掘る
         Dig,
+        // スコアA
+        ScoreA,
+        // スコアB
+        ScoreB,
+        // スコアC
+        ScoreC,
+        // スコアD
+        ScoreD,
     }
 
     [SerializeField]
@@ -20,7 +28,19 @@ public class EffectSystem : Base
     [SerializeField]
     public ParticleSystem digParticleSystem = null;
 
-    
+    [SerializeField]
+    public ParticleSystem scoreAParticleSystem = null;
+
+    [SerializeField]
+    public ParticleSystem scoreBParticleSystem = null;
+
+    [SerializeField]
+    public ParticleSystem scoreCParticleSystem = null;
+
+    [SerializeField]
+    public ParticleSystem scoreDParticleSystem = null;
+
+
     public class EffectInfo
     {
         public ParticleSystem particleSystem = null;
@@ -70,6 +90,19 @@ public class EffectSystem : Base
         }
     }
 
+    public void StopAll()
+    {
+        for(int i = 0; i < m_effectInfoList.Count; i++)
+        {
+            if(m_effectInfoList[i].gameObject != null )
+            {
+                Destroy(m_effectInfoList[i].gameObject);
+                m_effectInfoList[i].gameObject = null;
+            }
+        }
+        m_effectInfoList.Clear();
+    }
+
     /*
      * 再生
      * @param effectType    エフェクトの種類
@@ -97,6 +130,43 @@ public class EffectSystem : Base
                 m_effectInfoList.Add(info);
             }
             break;
+
+        case EffectType.ScoreA:
+            {
+                EffectInfo info = new EffectInfo();
+                info.gameObject = GameObject.Instantiate(scoreAParticleSystem.gameObject, position, new Quaternion(), parent);
+                info.particleSystem = info.gameObject.GetComponent<ParticleSystem>();
+                m_effectInfoList.Add(info);
+            }
+            break;
+
+        case EffectType.ScoreB:
+            {
+                EffectInfo info = new EffectInfo();
+                info.gameObject = GameObject.Instantiate(scoreBParticleSystem.gameObject, position, new Quaternion(), parent);
+                info.particleSystem = info.gameObject.GetComponent<ParticleSystem>();
+                m_effectInfoList.Add(info);
+            }
+            break;
+
+        case EffectType.ScoreC:
+            {
+                EffectInfo info = new EffectInfo();
+                info.gameObject = GameObject.Instantiate(scoreCParticleSystem.gameObject, position, new Quaternion(), parent);
+                info.particleSystem = info.gameObject.GetComponent<ParticleSystem>();
+                m_effectInfoList.Add(info);
+            }
+            break;
+
+        case EffectType.ScoreD:
+            {
+                EffectInfo info = new EffectInfo();
+                info.gameObject = GameObject.Instantiate(scoreDParticleSystem.gameObject, position, new Quaternion(), parent);
+                info.particleSystem = info.gameObject.GetComponent<ParticleSystem>();
+                m_effectInfoList.Add(info);
+            }
+            break;
+
         }
     }
 

@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a35f57777aac0940ac05d7e5c47b328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  gameCamera: {fileID: 0}
   itemGetParticleSystem: {fileID: 1785774312069786458, guid: 088e7d9b6a4a3b34e93347a8617352ab, type: 3}
   digParticleSystem: {fileID: 1785774312069786458, guid: bf9e9b47fa480bf4b978736b4d7bcf2e, type: 3}
+  scoreAParticleSystem: {fileID: 1785774312069786458, guid: ddeed61a1fcc89040a0fda0efd8d75f7, type: 3}
+  scoreBParticleSystem: {fileID: 1785774312069786458, guid: 306342f77296f0e4681d7461da331bd0, type: 3}
+  scoreCParticleSystem: {fileID: 1785774312069786458, guid: 026dce3d062d5284e8d91cdda684f503, type: 3}
+  scoreDParticleSystem: {fileID: 1785774312069786458, guid: 16dec0001c84d5147966be0e4ec87a7a, type: 3}

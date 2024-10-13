@@ -112,9 +112,9 @@ MonoBehaviour:
   threeCarrots: {fileID: 5549162656719267488}
   maxCarrots: {fileID: 8081391026840907920}
   deathCarrots: {fileID: 501573319851026751}
-  growLimit: 15
-  growTime: 10
-  maxGrowTime: 5
+  growLimit: 8
+  growTime: 5
+  maxGrowTime: 3
 --- !u!1 &5549162656719267488
 GameObject:
   m_ObjectHideFlags: 0

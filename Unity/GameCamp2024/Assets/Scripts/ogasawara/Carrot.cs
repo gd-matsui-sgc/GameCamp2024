@@ -11,16 +11,16 @@ public class Carrot : Base
     [SerializeField] GameObject deathCarrots;
 
     //人参が枯れるまでの時間
-    [SerializeField] float growLimit = 15f;
+    [SerializeField] float growLimit = 10f;
 
     //第一成長
-    [SerializeField] float growTime = 10f;
+    [SerializeField] float growTime = 7f;
 
     //第二成長
-    [SerializeField] float maxGrowTime = 5f;
+    [SerializeField] float maxGrowTime = 3f;
 
     // 枯れるまでの制限（カウント用）
-    private float m_growLimit = 15.0f;
+    private float m_growLimit = 10.0f;
     private float growAccelerate = 1;
 
     bool nowFever = false;
@@ -186,11 +186,14 @@ public class Carrot : Base
 	public void Run(int holeIndex, Vector3 position)
     {
         transform.localPosition = new Vector3(position.x, position.y, position.z);
-        m_growLimit = growLimit;
+		growLimit = 8f;
+
+		m_growLimit = growLimit;
         carrot.SetActive(true);
         m_holeIndex = holeIndex;
 
         SetPhase((int)Phase.Run);
+
     }
 
     /*

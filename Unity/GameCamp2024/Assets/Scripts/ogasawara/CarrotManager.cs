@@ -23,6 +23,9 @@ public class CarrotManager : Base
 	[SerializeField]
 	public GameObject carrotGameObject = null;
 
+	[SerializeField]
+	public List<GameObject> holeHookObjectList = new List<GameObject>();
+
 	// 穴の情報
 	public class HoleInfo
 	{
@@ -62,11 +65,11 @@ public class CarrotManager : Base
 		// ToDo
 		// Gameシーンに穴のGameObjectを配置して、ここで取得すると座標も個数もわかってよさそう
 		// 今はいったん強制的にランダムで入れてます。
-		for(int i = 0; i < 16; i++)
+		for(int i = 0; i < holeHookObjectList.Count; i++)
 		{
 			HoleInfo holeInfo = new HoleInfo(i);
 			holeInfo.isEmpty = true;
-			holeInfo.position = new Vector3(Random.Range(0, 20) - 10.0f, 0.0f, Random.Range(0, 20) - 10.0f);
+			holeInfo.position = new Vector3(holeHookObjectList[i].transform.localPosition.x, 0.0f, holeHookObjectList[i].transform.localPosition.z);
 			m_holeInfoList.Add(holeInfo);
 		}
 	}

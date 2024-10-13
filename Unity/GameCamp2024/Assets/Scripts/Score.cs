@@ -64,8 +64,8 @@ public class Score : MonoBehaviour
         m_score = tempScore;
     }
 
-    //スコアのリセット
-    public void ResetScore()
+	//スコアのリセット
+	public void ResetScore()
     {
         m_score = 0;
         m_prevScore = 0;

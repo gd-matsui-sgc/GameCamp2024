@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Carrot : Base
@@ -20,6 +21,9 @@ public class Carrot : Base
 
     // 枯れるまでの制限（カウント用）
     private float m_growLimit = 15.0f;
+    private float growAccelerate = 1;
+
+    bool nowFever = false;
 
     // フェイズ
     private enum Phase
@@ -84,41 +88,9 @@ public class Carrot : Base
      */
 	private void _Run()
     {
-        m_growLimit -= Time.deltaTime;
-
-        if (m_growLimit <= growTime)
-        {
-            if (m_growCarrots == CarrotGrow.FIRST_CARROT)
-            {
-                m_growCarrots = CarrotGrow.THREE_CARROT;
-                carrot.SetActive(false);
-                threeCarrots.SetActive(true);
-            }
-        }
-
-
-        if (m_growLimit <= maxGrowTime)
-        {
-            if (m_growCarrots == CarrotGrow.THREE_CARROT)
-            {
-                m_growCarrots = CarrotGrow.MAX_CARROT;
-                threeCarrots.SetActive(false);
-                maxCarrots.SetActive(true);
-            }
-        }
-
-
-        if (m_growLimit <= 0)
-        {
-            if (m_growCarrots == CarrotGrow.MAX_CARROT)
-            {
-                maxCarrots.SetActive(false);
-                deathCarrots.SetActive(true);
-            }
-        }
-
-        // 仮）フィーバー中はキャラに吸い寄せられるなど。
-        if(Work.gauge.IsFever())
+        UpdateGrow();
+		// 仮）フィーバー中はキャラに吸い寄せられるなど。
+		if (Work.gauge.IsFever())
         {
             SetPhase((int)Phase.Fever);
         }
@@ -148,22 +120,42 @@ public class Carrot : Base
         // 仮）ここで属性かえてもよさそう
         if(GetPhaseTime() == 0)
         {
-
+            
         }
 
-        float followSpeed = 10.0f;
+		if (!Work.gauge.IsFever())
+        {
+            growAccelerate = 1;
+            SetPhase((int)Phase.Run);
+            return;
+        }
+		UpdateGrow();
 
-        // ターゲットの方向を計算
-        Vector3 direction = (Work.player.transform.position - transform.position).normalized;
+		float followSpeed = 10.0f;
 
-        // オブジェクトをターゲットの方向に移動
-        transform.position = Vector3.MoveTowards(transform.position, Work.player.transform.position, followSpeed * Time.deltaTime);
+        //// ターゲットの方向を計算
+        //Vector3 direction = (Work.player.transform.position - transform.position).normalized;
 
-        // ターゲットの方向に向ける
-        transform.LookAt(Work.player.transform);
+        //// オブジェクトをターゲットの方向に移動
+        //transform.position = Vector3.MoveTowards(transform.position, Work.player.transform.position, followSpeed * Time.deltaTime);
+
+        //// ターゲットの方向に向ける
+        //transform.LookAt(Work.player.transform);
+
+        // フィーバー中の人参の成長速度を上げる
+        growAccelerate = 1.5f;
     }
 
-    /*
+	/*
+     * フィーバーフェイズかを判定
+     * @returns 判定結果
+     */
+	public bool IsFever()
+	{
+		return ((Phase)GetPhase() == Phase.Fever);
+	}
+
+	/*
      * 待機フェイズにします
      */
 	public void Idle()
@@ -237,10 +229,49 @@ public class Carrot : Base
         return m_holeIndex;
     }
 
-    /**
+    private void UpdateGrow()
+    {
+		m_growLimit -= Time.deltaTime * growAccelerate;
+
+		if (m_growLimit <= growTime)
+		{
+			if (m_growCarrots == CarrotGrow.FIRST_CARROT)
+			{
+				m_growCarrots = CarrotGrow.THREE_CARROT;
+				carrot.SetActive(false);
+				threeCarrots.SetActive(true);
+			}
+		}
+
+
+		if (m_growLimit <= maxGrowTime)
+		{
+			if (m_growCarrots == CarrotGrow.THREE_CARROT)
+			{
+				m_growCarrots = CarrotGrow.MAX_CARROT;
+				threeCarrots.SetActive(false);
+				maxCarrots.SetActive(true);
+			}
+		}
+
+        if (!IsFever())
+        {
+            if (m_growLimit <= 0)
+            {
+                if (m_growCarrots == CarrotGrow.MAX_CARROT)
+                {
+                    maxCarrots.SetActive(false);
+                    deathCarrots.SetActive(true);
+                }
+            }
+        }
+	}
+
+
+	/**
      * Collider が他のトリガーと当たり続けている毎フレーム呼び出される
      */
-    private void OnTriggerStay(Collider other)
+	private void OnTriggerStay(Collider other)
     {
         if(!IsRunning()){ return; }
 
@@ -262,12 +293,12 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
-                point = 3;
+                point = 5;
                 Work.gauge.AddValue(10);
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
-                point = 5;
+                point = 10;
                 Work.gauge.AddValue(20);
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)

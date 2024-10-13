@@ -92,6 +92,8 @@ public class CarrotManager : Base
 		if(carrot != null)
 		{
 			carrot.Run(holeIndex, position);
+
+			Work.effectSystem.Play(EffectSystem.EffectType.Dig,position);
 		}
 	}
 

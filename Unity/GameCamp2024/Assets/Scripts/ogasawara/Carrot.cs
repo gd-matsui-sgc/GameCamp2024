@@ -294,20 +294,24 @@ public class Carrot : Base
             {
                 point = 1;
                 Work.gauge.AddValue(5);
+                Work.effectSystem.Play(EffectSystem.EffectType.ScoreA, Work.player.transform.position);
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
                 point = 5;
                 Work.gauge.AddValue(10);
+                Work.effectSystem.Play(EffectSystem.EffectType.ScoreB, Work.player.transform.position);
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
                 point = 10;
                 Work.gauge.AddValue(20);
+                Work.effectSystem.Play(EffectSystem.EffectType.ScoreC, Work.player.transform.position);
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {
                 point = -3;
+                Work.effectSystem.Play(EffectSystem.EffectType.ScoreD, Work.player.transform.position);
             }
             Debug.Log("AddPoint = " + point + " ... " + m_growCarrots);
 

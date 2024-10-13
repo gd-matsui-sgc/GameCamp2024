@@ -21,5 +21,7 @@ static public class Work
     static public Gauge         gauge = null;
     // トータルスコア
     static public int           totalScore = 0;
+    // ハイスコアスコア
+    static public int           highScore = 0;
       
 }

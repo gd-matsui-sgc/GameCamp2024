@@ -84,7 +84,8 @@ public class Title : BaseScene
             }
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) ||
+            Input.GetKeyDown(KeyCode.Return))
         {
             SetPhase((int)Phase.FadeOut);
         }
@@ -108,7 +109,6 @@ public class Title : BaseScene
         }
     }
 
-
     /*
      * フェードアウト
      */
@@ -116,7 +116,7 @@ public class Title : BaseScene
     {
         if(GetPhaseTime() == 70)
         {
-            Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black, Fade.FadeSpeed.Norma );
+            Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black, Fade.FadeSpeed.Fast );
         }
         else if(GetPhaseTime() > 70)
         {

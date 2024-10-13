@@ -15,12 +15,27 @@ public class Result : BaseScene
     [SerializeField]
     public Score resultScore = null;
 
+    // リザルト用スコア
+    [SerializeField]
+    public Score highScore = null;
+
+    // ハイスコア更新
+    bool m_highScoreUpdated = false;
+
+
     /**
      * Updateの直前に呼ばれます
      */
     protected override void OnStart()
     {
         resultScore.ResetScore();
+        if(Work.totalScore > Work.highScore)
+        {
+            Work.highScore = Work.totalScore;
+            PlayerPrefs.SetInt("HighScore", Work.highScore);
+            PlayerPrefs.Save();
+            m_highScoreUpdated = true;
+        }
     }
 
     /**
@@ -43,7 +58,7 @@ public class Result : BaseScene
     {   
         if(GetPhaseTime() == 0)
         {
-            Work.fade.Play(Fade.FadeType.In, Fade.ColorType.Black, Fade.FadeSpeed.Norma );
+            Work.fade.Play(Fade.FadeType.In, Fade.ColorType.Black, Fade.FadeSpeed.Fast );
         }
         else if(!Work.fade.IsPlaying())
         {
@@ -60,11 +75,13 @@ public class Result : BaseScene
         {
             if(Work.totalScore < 20)
             {
-                resultScore.AddScore(Work.totalScore, 2.0f);
+                resultScore.AddScore(Work.totalScore, 1.0f);
+                highScore.AddScore(Work.highScore, 3.0f);
             }
             else
             {
-                resultScore.AddScore(Work.totalScore, 5.0f);
+                resultScore.AddScore(Work.totalScore, 3.0f);
+                highScore.AddScore(Work.highScore, 3.0f);
             }
         }
         else if( GetPhaseTime() == 62 )
@@ -77,7 +94,8 @@ public class Result : BaseScene
         // 少し待ち時間を作っておく
         else if( GetPhaseTime() >= 80 )
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.Return))
             {
                 SetPhase((int)Phase.FadeOut);
             }
@@ -91,7 +109,7 @@ public class Result : BaseScene
     {
         if(GetPhaseTime() == 0)
         {
-            Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black, Fade.FadeSpeed.Norma );
+            Work.fade.Play(Fade.FadeType.Out, Fade.ColorType.Black, Fade.FadeSpeed.Fast );
         }
         else if(!Work.fade.IsPlaying())
         {

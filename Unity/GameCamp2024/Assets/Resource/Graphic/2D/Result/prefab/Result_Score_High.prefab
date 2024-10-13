@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1389149472046146903}
   - component: {fileID: 2145897752780236393}
   m_Layer: 5
-  m_Name: Result_Score
+  m_Name: Result_Score_High
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1 &1583248161149218315
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30B9\u30B3\u30A2:"
+  m_text: "\u30CF\u30A4\u30B9\u30B3\u30A2:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0244f018aa692794b81cc0bf7bf16c8d, type: 2}
   m_sharedMaterial: {fileID: 84379535320803626, guid: 0244f018aa692794b81cc0bf7bf16c8d, type: 2}

@@ -35,7 +35,7 @@ public class Main : BaseScene
      */
     protected override void OnAwake()
     {
-
+        Work.highScore = PlayerPrefs.GetInt("HighScore", 0); 
     }
 
     /**

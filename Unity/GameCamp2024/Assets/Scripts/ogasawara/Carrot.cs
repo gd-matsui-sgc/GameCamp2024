@@ -260,7 +260,8 @@ public class Carrot : Base
             {
                 if (m_growCarrots == CarrotGrow.MAX_CARROT)
                 {
-                    maxCarrots.SetActive(false);
+					m_growCarrots = CarrotGrow.DEATH_CARROT;
+					maxCarrots.SetActive(false);
                     deathCarrots.SetActive(true);
                 }
             }
@@ -303,8 +304,9 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {
-                point = -1;
+                point = -3;
             }
+            Debug.Log("AddPoint = " + point + " ... " + m_growCarrots);
 
             if(Work.gameScore != null)
             {

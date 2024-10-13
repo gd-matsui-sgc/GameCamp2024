@@ -17,7 +17,7 @@ public class Test_Nohara_Player : MonoBehaviour
     {  // ¶‚ÉˆÚ“®
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.Translate(-0.1f, 0.0f, 0.0f);
+            this.transform.Translate(-1.0f, 0.0f, 0.0f);
         }
         // ‰E‚ÉˆÚ“®
         if (Input.GetKey(KeyCode.RightArrow))
@@ -42,9 +42,10 @@ public class Test_Nohara_Player : MonoBehaviour
         if (collision.gameObject.name == "Test_Nohara_Carrot")
         {
                score.AddScore(10);
-
-              ////F‚ğ•‚É•Ï‰»‚³‚¹‚é
-              //GetComponent<Renderer>().material.color = Color.black;
+            // Œø‰Ê‰¹
+            GetComponent<AudioSource>().Play();
+            ////F‚ğ•‚É•Ï‰»‚³‚¹‚é
+            GetComponent<Renderer>().material.color = Color.black;
         }
     }
 }

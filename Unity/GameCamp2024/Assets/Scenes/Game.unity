@@ -6503,6 +6503,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 785290807345139231, guid: d9d9ff03ff0d909469ab76f6dd0751a8, type: 3}
     - target: {fileID: 3012846537022265007, guid: d764cc0b0d9d0da4c97a871623b81d06, type: 3}
+      propertyPath: gameFeverTelopGameObject
+      value: 
+      objectReference: {fileID: 785290807345139231, guid: c6116948d01e5b44092228d0553fc046, type: 3}
+    - target: {fileID: 3012846537022265007, guid: d764cc0b0d9d0da4c97a871623b81d06, type: 3}
       propertyPath: gameStartTelopGameObject
       value: 
       objectReference: {fileID: 785290807345139231, guid: 42cde2617264107479a514c3f7843c6d, type: 3}

@@ -159,6 +159,12 @@ public class Game : BaseScene
 			// 仮）フィーバー中は５秒間で元に戻るなど。
 			if(Work.gauge.IsFever())
 			{
+				if(m_feverTimeCount == 0)				
+				{
+					telop.Play(Telop.TelopType.Fever);
+					timer.CountStop();
+				}
+
 				m_feverTimeCount += Time.deltaTime;
 				if(m_feverTimeCount >= 5)
 				{
@@ -166,7 +172,13 @@ public class Game : BaseScene
 					m_feverTimeCount = 0.0f;
 				}
 			}
-
+			else
+			{
+				if(!timer.IsRunning())
+				{
+					timer.CountStart();
+				}
+			}
 
 			// サンプル
 			if(Input.GetKeyDown(KeyCode.X))

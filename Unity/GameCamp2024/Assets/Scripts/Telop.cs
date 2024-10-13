@@ -30,6 +30,9 @@ public class Telop : Base
 
         // ゲーム終了
         GameEnd,
+
+        // フィーバー
+        Fever,
     }
 
     [SerializeField]
@@ -37,6 +40,9 @@ public class Telop : Base
 
     [SerializeField]
     public GameObject gameEndTelopGameObject   = null;
+
+    [SerializeField]
+    public GameObject gameFeverTelopGameObject   = null;
 
     // テロップのゲームオブジェクト
     private GameObject m_telopGameObject   = null;
@@ -89,7 +95,14 @@ public class Telop : Base
                     m_telopGameObject = Instantiate(gameEndTelopGameObject, transform);
                 }
                 break;
+
+            case TelopType.Fever:
+                {
+                    m_telopGameObject = Instantiate(gameFeverTelopGameObject, transform);
+                }
+                break;
             }
+
             if( m_telopGameObject != null )
             {
                 m_telopAnimator = m_telopGameObject.GetComponentInChildren<Animator>();
@@ -101,7 +114,7 @@ public class Telop : Base
             {
                 AnimatorStateInfo stateInfo = m_telopAnimator.GetCurrentAnimatorStateInfo(0);
                 // 現在のアニメーションが "out" かどうかを確認
-                if( stateInfo.IsName("out") )
+                if( stateInfo.IsName("out") || stateInfo.IsName("Feever") )
                 {
                     if( stateInfo.normalizedTime >= 1.0f )
                     {

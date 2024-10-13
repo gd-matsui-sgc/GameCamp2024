@@ -96,6 +96,14 @@ public class Timer : Base
     }
 
     /*
+     * 再生中か
+     */
+    public bool IsRunning()
+    {
+        return ((Phase)GetPhase() == Phase.Start);
+    }
+
+    /*
      * 時間をテキストに適用
      */
     private void ApplyTimeToTextWidget()

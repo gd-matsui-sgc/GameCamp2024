@@ -26,7 +26,7 @@ public class Carrot : Base
     bool nowFever = false;
 
     // フェイズ
-
+    
     [SerializeField]AudioSource first;
 	[SerializeField] AudioSource second;
 	[SerializeField] AudioSource max;
@@ -390,7 +390,7 @@ public class Carrot : Base
 
             if(m_growCarrots == CarrotGrow.FIRST_CARROT)
             {
-                first.Play();
+                //first.Play();
                 point = 1;
                 if(!IsFever())
                 {
@@ -400,7 +400,7 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
-                second.Play();
+                //second.Play();
                 point = 5;
                 if(!IsFever())
                 {
@@ -410,7 +410,7 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
-                max.Play();
+                //max.Play();
                 point = 10;
                 if(!IsFever())
                 {
@@ -420,7 +420,7 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {
-                death.Play();
+                //death.Play();
                 point = -3;
                 Work.effectSystem.Play(EffectSystem.EffectType.ScoreD, Work.player.transform.position);
             }

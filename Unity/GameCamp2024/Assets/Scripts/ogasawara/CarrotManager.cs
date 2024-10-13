@@ -41,6 +41,8 @@ public class CarrotManager : Base
 		public Vector3  position = Vector3.zero;
 		// 人参が空っぽか
 		public bool     isEmpty = true;
+		// 生成カウンタ
+		public int      counter = 0;
 	}
 
 	// 穴の位置情報のリスト
@@ -68,7 +70,8 @@ public class CarrotManager : Base
 		for(int i = 0; i < holeHookObjectList.Count; i++)
 		{
 			HoleInfo holeInfo = new HoleInfo(i);
-			holeInfo.isEmpty = true;
+			holeInfo.isEmpty = false;
+			holeInfo.counter = Random.Range(1 * 60, 5 * 60);
 			holeInfo.position = new Vector3(holeHookObjectList[i].transform.localPosition.x, 0.0f, holeHookObjectList[i].transform.localPosition.z);
 			m_holeInfoList.Add(holeInfo);
 		}
@@ -94,8 +97,14 @@ public class CarrotManager : Base
 		Carrot carrot = SearchIdlingCarrots();
 		if(carrot != null)
 		{
-			carrot.Run(holeIndex, position);
-
+			if(!Work.gauge.IsFever())
+			{
+				carrot.Run(holeIndex, position);
+			}
+			else
+			{
+				carrot.Fever(holeIndex, position);
+			}
 			Work.effectSystem.Play(EffectSystem.EffectType.Dig,position);
 		}
 	}
@@ -125,7 +134,12 @@ public class CarrotManager : Base
 				Carrot carrot = SearchCarrotsByHoleIndex(holeInfo.index);
 				if(!carrot)
 				{
-					holeInfo.isEmpty = true;
+					holeInfo.counter++;
+					if(holeInfo.counter >= 5 * 60)
+					{
+						holeInfo.counter = 0;
+						holeInfo.isEmpty = true;
+					}
 				}
 			}
 		}

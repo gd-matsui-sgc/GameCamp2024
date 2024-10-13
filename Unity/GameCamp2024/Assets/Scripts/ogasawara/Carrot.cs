@@ -11,7 +11,7 @@ public class Carrot : Base
     [SerializeField] GameObject deathCarrots;
 
     //人参が枯れるまでの時間
-    [SerializeField] float growLimit = 10f;
+    [SerializeField] float growLimit = 15f;
 
     //第一成長
     [SerializeField] float growTime = 7f;
@@ -43,10 +43,11 @@ public class Carrot : Base
 
     public enum CarrotGrow
     {
+        None = -1,
         FIRST_CARROT = 0,
         THREE_CARROT,
         MAX_CARROT,
-        DEATH_CARROT
+        DEATH_CARROT,
     }
 
     private CarrotGrow m_growCarrots;
@@ -61,9 +62,8 @@ public class Carrot : Base
     {
         m_growCarrots = CarrotGrow.FIRST_CARROT;
 
-        threeCarrots.SetActive(false);
-        maxCarrots.SetActive(false);
-        deathCarrots.SetActive(false);
+        SetCarrotModeType(CarrotGrow.None);
+
 
         Idle();
 
@@ -92,7 +92,7 @@ public class Carrot : Base
 		// 仮）フィーバー中はキャラに吸い寄せられるなど。
 		if (Work.gauge.IsFever())
         {
-            SetPhase((int)Phase.Fever);
+            Fever();
         }
     }
 
@@ -104,10 +104,7 @@ public class Carrot : Base
         // 演出があれば再生
         if(GetPhaseTime() == 0)
         {
-            carrot.SetActive(false);
-            threeCarrots.SetActive(false);
-            maxCarrots.SetActive(false);
-            deathCarrots.SetActive(false);
+            SetCarrotModeType(CarrotGrow.None);
         }
         Idle();
     }
@@ -126,7 +123,7 @@ public class Carrot : Base
 		if (!Work.gauge.IsFever())
         {
             growAccelerate = 1;
-            SetPhase((int)Phase.Run);
+            Run();
             return;
         }
 		UpdateGrow();
@@ -164,9 +161,7 @@ public class Carrot : Base
         m_holeIndex  = -1;
         transform.localPosition = Vector3.one * 1000.0f;
 
-        threeCarrots.SetActive(false);
-        maxCarrots.SetActive(false);
-        deathCarrots.SetActive(false);
+        SetCarrotModeType(CarrotGrow.None);
 
         SetPhase((int)Phase.Idle);
     }
@@ -186,15 +181,57 @@ public class Carrot : Base
 	public void Run(int holeIndex, Vector3 position)
     {
         transform.localPosition = new Vector3(position.x, position.y, position.z);
-		growLimit = 15f;
 
 		m_growLimit = growLimit;
-        carrot.SetActive(true);
+        m_growCarrots = CarrotGrow.FIRST_CARROT;
+        SetCarrotModeType(m_growCarrots);
         m_holeIndex = holeIndex;
 
         SetPhase((int)Phase.Run);
 
     }
+
+    /*
+     * 実行フェイズにします
+     */
+	public void Run()
+    {
+		m_growLimit = growLimit;
+        m_growCarrots = CarrotGrow.FIRST_CARROT;
+        SetCarrotModeType(m_growCarrots);
+        SetPhase((int)Phase.Run);
+    }
+
+
+    /*
+     * フィーバーフェイズにします
+     */
+	public void Fever(int holeIndex, Vector3 position)
+    {
+        transform.localPosition = new Vector3(position.x, position.y, position.z);
+		m_growLimit = growLimit;
+        m_holeIndex = holeIndex;
+
+        // フィーバーの時は最大レベルの人参に変更
+        m_growLimit = maxGrowTime;
+        m_growCarrots = CarrotGrow.MAX_CARROT;
+        SetCarrotModeType(m_growCarrots);
+        SetPhase((int)Phase.Fever);
+    }
+
+    /*
+     * フィーバーフェイズにします
+     */
+	public void Fever()
+    {
+        // フィーバーの時は最大レベルの人参に変更
+        m_growLimit = maxGrowTime;
+        m_growCarrots = CarrotGrow.MAX_CARROT;
+        SetCarrotModeType(m_growCarrots);
+        Work.effectSystem.Play(EffectSystem.EffectType.Dig, transform.position);
+        SetPhase((int)Phase.Fever);
+    }
+
 
     /*
      * 実行フェイズかを判定
@@ -241,19 +278,16 @@ public class Carrot : Base
 			if (m_growCarrots == CarrotGrow.FIRST_CARROT)
 			{
 				m_growCarrots = CarrotGrow.THREE_CARROT;
-				carrot.SetActive(false);
-				threeCarrots.SetActive(true);
+                SetCarrotModeType(m_growCarrots);
 			}
 		}
-
 
 		if (m_growLimit <= maxGrowTime)
 		{
 			if (m_growCarrots == CarrotGrow.THREE_CARROT)
 			{
 				m_growCarrots = CarrotGrow.MAX_CARROT;
-				threeCarrots.SetActive(false);
-				maxCarrots.SetActive(true);
+                SetCarrotModeType(m_growCarrots);
 			}
 		}
 
@@ -264,12 +298,63 @@ public class Carrot : Base
                 if (m_growCarrots == CarrotGrow.MAX_CARROT)
                 {
 					m_growCarrots = CarrotGrow.DEATH_CARROT;
-					maxCarrots.SetActive(false);
-                    deathCarrots.SetActive(true);
+					SetCarrotModeType(m_growCarrots);
                 }
             }
         }
 	}
+
+    private void SetCarrotModeType( CarrotGrow _growType)
+    {
+        switch(_growType)
+        {
+        case CarrotGrow.None:
+            {
+                carrot.SetActive(false);
+                threeCarrots.SetActive(false);
+                maxCarrots.SetActive(false);
+                deathCarrots.SetActive(false);
+            }
+            break;
+
+        case CarrotGrow.FIRST_CARROT:
+            {
+                carrot.SetActive(true);
+                threeCarrots.SetActive(false);
+                maxCarrots.SetActive(false);
+                deathCarrots.SetActive(false);
+            }
+            break;
+
+        case CarrotGrow.THREE_CARROT:
+            {
+                carrot.SetActive(false);
+                threeCarrots.SetActive(true);
+                maxCarrots.SetActive(false);
+                deathCarrots.SetActive(false);
+            }
+            break;
+
+        case CarrotGrow.MAX_CARROT:
+            {
+                carrot.SetActive(false);
+                threeCarrots.SetActive(false);
+                maxCarrots.SetActive(true);
+                deathCarrots.SetActive(false);
+            }
+            break;
+
+        case CarrotGrow.DEATH_CARROT:
+            {
+                carrot.SetActive(false);
+                threeCarrots.SetActive(false);
+                maxCarrots.SetActive(false);
+                deathCarrots.SetActive(true);
+            }
+            break;                        
+        }
+
+    }
 
 
 	/**
@@ -293,19 +378,28 @@ public class Carrot : Base
             if(m_growCarrots == CarrotGrow.FIRST_CARROT)
             {
                 point = 1;
-                Work.gauge.AddValue(5);
+                if(!IsFever())
+                {
+                    Work.gauge.AddValue(5);
+                }
                 Work.effectSystem.Play(EffectSystem.EffectType.ScoreA, Work.player.transform.position);
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
                 point = 5;
-                Work.gauge.AddValue(10);
+                if(!IsFever())
+                {
+                    Work.gauge.AddValue(10);    
+                }
                 Work.effectSystem.Play(EffectSystem.EffectType.ScoreB, Work.player.transform.position);
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
                 point = 10;
-                Work.gauge.AddValue(20);
+                if(!IsFever())
+                {
+                    Work.gauge.AddValue(20);
+                }
                 Work.effectSystem.Play(EffectSystem.EffectType.ScoreC, Work.player.transform.position);
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)

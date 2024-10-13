@@ -25,6 +25,7 @@ public class Carrot : Base
 
     bool nowFever = false;
 
+<<<<<<< HEAD
     // フェイズ
     
     [SerializeField]AudioSource first;
@@ -32,6 +33,17 @@ public class Carrot : Base
 	[SerializeField] AudioSource max;
 	[SerializeField] AudioSource death;
     private enum Phase
+=======
+    AudioSource audioSource;
+
+    public AudioClip firstSE;
+	public AudioClip secondSE;
+	public AudioClip maxSE;
+	public AudioClip deathSE;
+
+	// フェイズ
+	private enum Phase
+>>>>>>> d9ee22a (音つました)
     {
         // 待機
         Idle,
@@ -63,10 +75,7 @@ public class Carrot : Base
 
 	private void Start()
 	{
-		first = GetComponent<AudioSource>();
-        second = GetComponent<AudioSource>();
-        death = GetComponent<AudioSource>();
-        max = GetComponent<AudioSource>();
+		audioSource = GetComponent<AudioSource>();
 	}
 	/**
      * Updateの直前に呼ばれる
@@ -390,7 +399,11 @@ public class Carrot : Base
 
             if(m_growCarrots == CarrotGrow.FIRST_CARROT)
             {
+<<<<<<< HEAD
                 //first.Play();
+=======
+                audioSource.PlayOneShot(firstSE);
+>>>>>>> d9ee22a (音つました)
                 point = 1;
                 if(!IsFever())
                 {
@@ -400,8 +413,13 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
+<<<<<<< HEAD
                 //second.Play();
                 point = 5;
+=======
+				audioSource.PlayOneShot(secondSE);
+				point = 5;
+>>>>>>> d9ee22a (音つました)
                 if(!IsFever())
                 {
                     Work.gauge.AddValue(10);    
@@ -410,8 +428,13 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
+<<<<<<< HEAD
                 //max.Play();
                 point = 10;
+=======
+				audioSource.PlayOneShot(maxSE);
+				point = 10;
+>>>>>>> d9ee22a (音つました)
                 if(!IsFever())
                 {
                     Work.gauge.AddValue(20);
@@ -420,8 +443,13 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {
+<<<<<<< HEAD
                 //death.Play();
                 point = -3;
+=======
+				audioSource.PlayOneShot(deathSE);
+				point = -3;
+>>>>>>> d9ee22a (音つました)
                 Work.effectSystem.Play(EffectSystem.EffectType.ScoreD, Work.player.transform.position);
             }
             Debug.Log("AddPoint = " + point + " ... " + m_growCarrots);

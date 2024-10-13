@@ -106,7 +106,7 @@ public class CarrotManager : Base
 	private void _Play()
 	{
 		// ToDo:生成タイミングを何かで制御したらよさそう
-		if(GetPhaseTime() % 10 == 0)
+		if(GetPhaseTime() % 30 == 0)
 		{
 			HoleInfo holeInfo = SearchEmptyHoleInfo(true);
 			if(holeInfo != null)

@@ -20,7 +20,7 @@ public class Carrot : Base
     [SerializeField] float maxGrowTime = 3f;
 
     // 枯れるまでの制限（カウント用）
-    private float m_growLimit = 10.0f;
+    private float m_growLimit = 15.0f;
     private float growAccelerate = 1;
 
     bool nowFever = false;
@@ -186,7 +186,7 @@ public class Carrot : Base
 	public void Run(int holeIndex, Vector3 position)
     {
         transform.localPosition = new Vector3(position.x, position.y, position.z);
-		growLimit = 8f;
+		growLimit = 15f;
 
 		m_growLimit = growLimit;
         carrot.SetActive(true);

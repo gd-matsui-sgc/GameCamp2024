@@ -26,6 +26,11 @@ public class Carrot : Base
     bool nowFever = false;
 
     // フェイズ
+
+    [SerializeField]AudioSource first;
+	[SerializeField] AudioSource second;
+	[SerializeField] AudioSource max;
+	[SerializeField] AudioSource death;
     private enum Phase
     {
         // 待機
@@ -55,7 +60,15 @@ public class Carrot : Base
     // 穴のインデックス番号(-1初期値)
     private int        m_holeIndex = -1;
 
-    /**
+
+	private void Start()
+	{
+		first = GetComponent<AudioSource>();
+        second = GetComponent<AudioSource>();
+        death = GetComponent<AudioSource>();
+        max = GetComponent<AudioSource>();
+	}
+	/**
      * Updateの直前に呼ばれる
      */
 	protected override void OnStart()
@@ -377,6 +390,7 @@ public class Carrot : Base
 
             if(m_growCarrots == CarrotGrow.FIRST_CARROT)
             {
+                first.Play();
                 point = 1;
                 if(!IsFever())
                 {
@@ -386,6 +400,7 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.THREE_CARROT)
             {
+                second.Play();
                 point = 5;
                 if(!IsFever())
                 {
@@ -395,6 +410,7 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.MAX_CARROT)
             {
+                max.Play();
                 point = 10;
                 if(!IsFever())
                 {
@@ -404,6 +420,7 @@ public class Carrot : Base
             }
             else if (m_growCarrots == CarrotGrow.DEATH_CARROT)
             {
+                death.Play();
                 point = -3;
                 Work.effectSystem.Play(EffectSystem.EffectType.ScoreD, Work.player.transform.position);
             }

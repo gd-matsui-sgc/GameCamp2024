@@ -69,7 +69,6 @@ Transform:
   m_Children:
   - {fileID: 1369450951333983144}
   - {fileID: 1803784137891782394}
-  - {fileID: 1022615082404948086}
   - {fileID: 3103558856984772654}
   - {fileID: 943832659466138387}
   m_Father: {fileID: 0}
@@ -114,6 +113,10 @@ MonoBehaviour:
   growLimit: 15
   growTime: 10
   maxGrowTime: 5
+  first: {fileID: 0}
+  second: {fileID: 0}
+  max: {fileID: 0}
+  death: {fileID: 0}
 --- !u!1 &5549162656719267488
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,72 +952,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8784307583538182690, guid: 4cb9078ea7501e44b85f0510528e841e, type: 3}
   m_PrefabInstance: {fileID: 6686162509686114250}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6763057179567111696
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6232461605350058514}
-    m_Modifications:
-    - target: {fileID: 2769860645434532184, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_Name
-      value: DeathCarrots
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769860645434532184, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
---- !u!4 &1022615082404948086 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6046709582006621798, guid: eea9def063cfe4840a2fd0d0d7498d91, type: 3}
-  m_PrefabInstance: {fileID: 6763057179567111696}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7703800061008087434
 PrefabInstance:

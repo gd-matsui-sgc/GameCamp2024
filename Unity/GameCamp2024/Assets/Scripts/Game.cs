@@ -13,6 +13,9 @@ public class Game : BaseScene
 		// ゲームスタート
 		GameStart,
 
+		// チュートリアル
+		Tutorial,
+
 		// ゲーム中
 		Run,
 
@@ -43,12 +46,18 @@ public class Game : BaseScene
 	[SerializeField]
 	public Gauge gauge = null;
 
+	// チュートリアル
+	[SerializeField]
+	public Tutorial tutorial = null;
+
 	// 人参マネージャー
 	[SerializeField]
 	public CarrotManager carrotManager = null;
 
 	// 仮）フィーバータイムカウンタ
 	private float m_feverTimeCount = 0;
+
+	private Tutorial m_tutorial = null;
 
     /**
      * Updateの直前に呼ばれる
@@ -70,6 +79,7 @@ public class Game : BaseScene
 		switch ((Phase)GetPhase())
 		{
 			case Phase.FadeIn: 		_FadeIn();		break;
+			case Phase.Tutorial:	_Tutorial();	break;
 			case Phase.GameStart:	_GameStart();	break;
 			case Phase.Run:			_Run();			break;
 			case Phase.TimeUp:		_TimeUp();		break;
@@ -88,10 +98,33 @@ public class Game : BaseScene
 		}
 		else if (!Work.fade.IsPlaying())
 		{
-			SetPhase((int)Phase.GameStart);
+			SetPhase((int)Phase.Tutorial);
 		}
 	}
 
+    /*
+     * チュートリアル
+     */
+	protected void _Tutorial()
+	{
+		if (GetPhaseTime() == 0 &&
+			tutorial != null    )
+		{
+			GameObject gameObject = Instantiate(tutorial.gameObject);
+			m_tutorial = gameObject.GetComponent<Tutorial>();
+		}
+		else if (m_tutorial != null &&
+				 m_tutorial.IsExited())
+		{
+			GameObject.Destroy(m_tutorial.gameObject);
+			m_tutorial = null;
+			SetPhase((int)Phase.GameStart);
+		}
+		else if( m_tutorial == null)
+		{
+			SetPhase((int)Phase.GameStart);
+		}
+	}
     /*
      * ゲームスタート
      */

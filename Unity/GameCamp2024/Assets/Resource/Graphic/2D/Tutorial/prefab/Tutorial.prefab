@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3289934527359845181}
   - component: {fileID: 3503082608183286824}
   - component: {fileID: 4520568675979414655}
+  - component: {fileID: 3988871500242059921}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
@@ -84,6 +85,19 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &3988871500242059921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785290807345139231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e34c00bb737ecc45bd03f9b361a956f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 6554808424349534412}
 --- !u!1 &2510702692536076693
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -6553,6 +6553,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 576774021}
     - target: {fileID: 7350614678959011668, guid: 25fd228ff9eb1324184321f300084f76, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 3988871500242059921, guid: 819c1d13ec652454b9cba68f4ebd22e9, type: 3}
+    - target: {fileID: 7350614678959011668, guid: 25fd228ff9eb1324184321f300084f76, type: 3}
       propertyPath: carrotManager
       value: 
       objectReference: {fileID: 1827847469}

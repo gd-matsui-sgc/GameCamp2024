@@ -52,11 +52,11 @@ public class TitleRabbit : BaseScene
      */
     protected void _Run()
     {
-        if(GetPhaseTime() == 0 )
-        {
-            m_rotationTween.Play(transform.localEulerAngles, new Vector3(0.0f, 0.0f, 0.0f), 5.0f, Tween.Mode.Linear);
-            m_positionTween.Play(transform.localPosition,    new Vector3(-transform.localPosition.x * 1.5f, transform.localPosition.y, transform.localPosition.z), 2.0f, Tween.Mode.Linear);
-        }
+        // if(GetPhaseTime() == 0 )
+        // {
+        //     m_rotationTween.Play(transform.localEulerAngles, new Vector3(0.0f, 0.0f, 0.0f), 5.0f, Tween.Mode.Linear);
+        //     m_positionTween.Play(transform.localPosition,    new Vector3(-transform.localPosition.x * 1.5f, transform.localPosition.y, transform.localPosition.z), 2.0f, Tween.Mode.Linear);
+        // }
     }
 
     public void Run()

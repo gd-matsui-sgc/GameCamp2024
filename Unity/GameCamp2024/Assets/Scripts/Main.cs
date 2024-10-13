@@ -100,9 +100,17 @@ public class Main : BaseScene
         {
             if( m_title.IsExited())
             {
-                m_title = null;
-                SceneManager.UnloadSceneAsync("Title");
-                SetPhase(  ( int )Phase.Game );
+                if(m_title.GetExitCode() == 0)
+                {
+                    m_title = null;
+                    SceneManager.UnloadSceneAsync("Title");
+                    SetPhase(  ( int )Phase.Game );
+                }
+                else
+                {
+                    m_title = null;
+                    Application.Quit();
+                }
             }
         }
     }

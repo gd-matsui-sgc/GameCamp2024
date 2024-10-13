@@ -14,11 +14,22 @@ public class Title : BaseScene
     [SerializeField]
     public TitleRabbit titleRabbit = null;
 
+    [SerializeField]
+    public GameObject button1 = null;
+
+    [SerializeField]
+    public GameObject button2 = null;
+
+    // 選択されたボタンのインデックス
+    private int m_selectButtonIndex = 0;
+
     /**
      * Updateの直前に呼ばれます
      */
     protected override void OnStart()
     {
+        AcvtiveButton(0, true);
+        AcvtiveButton(1, false);
     }
 
     /**
@@ -54,12 +65,49 @@ public class Title : BaseScene
      */
     protected void _Run()
     {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if(m_selectButtonIndex != 0)
+            {
+                m_selectButtonIndex = 0;
+                AcvtiveButton(0, true);
+                AcvtiveButton(1, false);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if(m_selectButtonIndex != 1)
+            {
+                m_selectButtonIndex = 1;
+                AcvtiveButton(0, false);
+                AcvtiveButton(1, true);
+            }
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
-            titleRabbit.Run();
             SetPhase((int)Phase.FadeOut);
         }
     }
+    
+    void AcvtiveButton(int index, bool isActive)
+    {
+        if(index == 0)
+        {
+            foreach (UIFocus obj in button1.GetComponentsInChildren<UIFocus>(true))
+            {
+                obj.gameObject.SetActive(isActive);
+            }
+        }
+        else
+        {
+            foreach (UIFocus obj in button2.GetComponentsInChildren<UIFocus>(true))
+            {
+                obj.gameObject.SetActive(isActive);
+            }
+        }
+    }
+
 
     /*
      * フェードアウト
@@ -74,6 +122,7 @@ public class Title : BaseScene
         {
             if(!Work.fade.IsPlaying())
             {
+                SetExitCode(m_selectButtonIndex);
                 Exit();
             }
         }
